@@ -79,14 +79,14 @@ for device in ['cuda:0', 'cpu']:
         ('timm.models.deit_small_distilled_patch16_224', 2048, 224),
         ('levit.LeViT_128S', 2048, 224),
         ('levit.LeViT_128', 2048, 224),
-        ('levit.LeViT_192', 2048, 224),
-        ('levit.LeViT_256', 2048, 224),
-        ('levit.LeViT_384', 1024, 224),
-        ('timm.models.efficientnet_b0', 1024, 224),
-        ('timm.models.efficientnet_b1', 1024, 240),
-        ('timm.models.efficientnet_b2', 512, 260),
-        ('timm.models.efficientnet_b3', 512, 300),
-        ('timm.models.efficientnet_b4', 256, 380),
+#         ('levit.LeViT_192', 2048, 224),
+#         ('levit.LeViT_256', 2048, 224),
+#         ('levit.LeViT_384', 1024, 224),
+#         ('timm.models.efficientnet_b0', 1024, 224),
+#         ('timm.models.efficientnet_b1', 1024, 240),
+#         ('timm.models.efficientnet_b2', 512, 260),
+#         ('timm.models.efficientnet_b3', 512, 300),
+#         ('timm.models.efficientnet_b4', 256, 380),
     ]:
 
         if device == 'cpu':
