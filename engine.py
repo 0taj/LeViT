@@ -84,7 +84,29 @@ def evaluate(data_loader, model, device):
 
         # compute output
         with torch.cuda.amp.autocast():
-            output = model(images)
+            time_blocks = []
+            start_time = time.time()
+            x = model.patch_embed(images)
+            time_blocks.append(time.time() - start_time)
+            x = x.flatten(2).transpose(1, 2)
+            for i in range(28):
+                start_time = time.time()
+                x = model.blocks[i](x)
+                time_blocks.append(time.time() - start_time)
+
+            time_stages = []
+            time_stages.append(time_blocks[0])      # 4 convolutional layers
+            time_stages.append(time_blocks[1:10])   # stage 1
+            time_stages.append(time_blocks[10])     # shrink 1
+            time_stages.append(time_blocks[11:20])  # sstage 2
+            time_stages.append(time_blocks[20])     # shrink 2
+            time_stages.append(time_blocks[21:])    # stage 3
+
+df = pd.DataFrame(time_blocks, columns='Block', keys='Inference Time')
+df['Stage'] = pd.DataFrame(time_stages)
+df['Percent of Network'] = df['Stage'] / df['Stage'].sum()
+df.to_html('inference_time.html')
+print(df)
             loss = criterion(output, target)
 
         acc1, acc5 = accuracy(output, target, topk=(1, 5))
