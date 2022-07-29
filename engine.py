@@ -102,11 +102,11 @@ def evaluate(data_loader, model, device):
             time_stages.append(time_blocks[20])     # shrink 2
             time_stages.append(time_blocks[21:])    # stage 3
 
-df = pd.DataFrame(time_blocks, columns='Block', keys='Inference Time')
-df['Stage'] = pd.DataFrame(time_stages)
-df['Percent of Network'] = df['Stage'] / df['Stage'].sum()
-df.to_html('inference_time.html')
-print(df)
+            df = pd.DataFrame(time_blocks, columns='Block', keys='Inference Time')
+            df['Stage'] = pd.DataFrame(time_stages)
+            df['Percent of Network'] = df['Stage'] / df['Stage'].sum()
+            df.to_html('inference_time.html')
+            print(df)
             loss = criterion(output, target)
 
         acc1, acc5 = accuracy(output, target, topk=(1, 5))
